@@ -1,0 +1,13 @@
+{
+  "name": "blackJack",
+  "version": "0.1.0",
+  "description": "Black Jack",
+  "dependencies": {
+    "websocket": "",
+    "http": "",
+    "path": "",
+    "url": "",
+    "node-static": "",
+    "jasmine-node-karma": ""
+  }
+}
