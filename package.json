@@ -9,5 +9,7 @@
     "url": "",
     "node-static": "",
     "jasmine-node-karma": ""
-  }
+  },
+  "scripts": { "test": "./node_modules/jasmine-node-karma/bin/jasmine-node-karma Test/jasmine-node" },
+  "devDependencies": { "test": ">=0.0.5" }
 }
