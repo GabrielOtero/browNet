@@ -1,5 +1,7 @@
 var page = require('webpage').create();
-page.open("file:///home/gabriel/github/browNet/Test/jasmine/SpecRunner.html", function(status) {
+var dir = require('fs').absolute(".");
+
+page.open("file://"+dir+"/Test/jasmine/SpecRunner.html", function(status) {
 
   	var passed = page.evaluate(function() {
 	    return document.body.getElementsByClassName("bar passed");
