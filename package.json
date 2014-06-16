@@ -13,7 +13,7 @@
     "phantomjs": ""
   },
   "scripts": { 
-    "test": "./node_modules/jasmine-node-karma/bin/jasmine-node-karma Test/jasmine-node && ./node_modules/phantomjs/bin/phantomjs ./Test/jasmine/phantomScript.js " ,
+    "test": "./node_modules/jasmine-node-karma/bin/jasmine-node-karma Test/jasmine-node && ./node_modules/bower/bin/bower install jasmine && ./node_modules/phantomjs/bin/phantomjs ./Test/jasmine/phantomScript.js " ,
     "start": "node App/blackjackServer.js"
     },
   "devDependencies": 
