@@ -17,7 +17,7 @@ describe("Dealer", function () {
 
 			expect(postBack.type).toBe("cardDrawn");
 			
-			expect(postBack.data.to).toBe("player");
+			expect(postBack.data.to).toBe("playerr");
 			expect(postBack.data.card).toBeTruthy();
 			expect(postBack.data.addressee).toBe("PLAYER");
 		});
