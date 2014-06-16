@@ -19,7 +19,7 @@ describe("blackjack", function () {
 		it("should return fail response", function(){
 
 			expect(response.statusCode).toBe(500);
-			expect(response.resource).toBe("unexpected Error");
+			expect(response.resource).toBe("unexpected Errorr");
 
 		});
 	});
