@@ -4,5 +4,5 @@ node_js:
   - "0.10"
 cache: 
   directories:
-    - $HOME/GabrielOtero/browNet/node_modules
-    - $HOME/GabrielOtero/browNet/bower_components
+  - $HOME/GabrielOtero/browNet/node_modules
+  - $HOME/GabrielOtero/browNet/bower_components
