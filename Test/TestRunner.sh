@@ -4,7 +4,7 @@
 jasmine_node_exit_code=$?
 
 
-./node_modules/bower/bin/bower install git@github.com:pivotal/jasmine.git 
+./node_modules/bower/bin/bower install https://github.com/pivotal/jasmine.git
 
 ./node_modules/phantomjs/bin/phantomjs ./Test/jasmine/phantomScript.js
 
