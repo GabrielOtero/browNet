@@ -35,22 +35,6 @@ describe("blackjack", function () {
 		});
 	});
 
-	describe("on 'makeResponseMessage' without Dealer", function () {
-		var json = { data: {}, type : "newDealer"};
-		var requestKey = "123";	
-		var connection = {bjkey: "123"};
-
-		var response = blackjack.makeResponseMessage(requestKey, json, connection);
-
-		it("should return 'youreNewDealer response", function(){
-
-			expect(response.type).toBe("youreNewDealer");
-			expect(response.data.requestKey).toBe("123");
-			expect(response.data.addressee).toBe("DEALER");
-
-		});
-	});
-
 	describe("on 'makeResponseMessage' with Dealer", function () {
 
 		var message = {data: {to:"josh"}, type : "otherMessage"};
@@ -64,20 +48,6 @@ describe("blackjack", function () {
 
 			expect(response.type).toBe("otherMessage");
 			expect(response.data).toEqual({to:"josh", from: "xyz"});
-
-		});
-	});
-
-	describe("on 'getConnectionToRespond' without Dealer", function () {
-
-		var json = {data: {}, type : "newDealer"};
-		var connection = {bjkey: "xyz"};
-
-		var conn = blackjack.getConnectionToRespond(json, connection);
-
-
-		it("should return 'otherMessage' response", function(){
-			expect(conn).toEqual({bjkey: "xyz"});
 
 		});
 	});

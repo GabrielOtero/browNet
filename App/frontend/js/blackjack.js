@@ -11,24 +11,23 @@ $(function () {
  
     connection.onmessage = function (json) {
 
-        var message = JSON.parse(json.data);
+        var message = JSON.parse(json.data); 
+
+        if (message.type === 'yourToken') {
+            dealerToken = message.data.requestKey;
+            addMessage("Your Dealer Token: " + dealerToken);
+            hideButtons();
+            return;
+        }
+
         if(message.data.addressee === DEALER){          
-
-            if (message.type === 'youreNewDealer') {
-                dealerToken = message.data.requestKey;
-                addMessage("Your Dealer Token: " + dealerToken);
-                hideButtons();
-                return;
-            }
-
             var response = dealer.deal(message);
             sendMessage(response);
-
             if(message.type === 'newPlayer'){
                 addMessage("New player has connected");
-            }           
-        }
-        else if(message.data.addressee === PLAYER){
+            }
+        }else if(message.data.addressee === PLAYER){
+                       
             if (message.type === 'newPlayerAccepted'){
                 addMessage("Accepted");
                 $('#btnNewCard').removeClass("hidden");
@@ -62,7 +61,7 @@ function hideButtons() {
 }
 
 function beADealer(){
-    var json = {data: {}, type : "newDealer"}
+    var json = {data: {}, type : "myToken"}
     sendMessage(json);
 }
 

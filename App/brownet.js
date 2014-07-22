@@ -1,4 +1,4 @@
-var blackjackGame = {
+var brownet = {
 
     mapKeyConnection : [],
 
@@ -20,10 +20,10 @@ var blackjackGame = {
     makeResponseMessage : function(requestKey, message, connection){
         var returnMessage = {};    
 
-        if(message.type == "newDealer"){
+        if(message.type == "myToken"){
 
-            returnMessage.type = "youreNewDealer";
-            returnMessage.data = {requestKey : requestKey, addressee: "DEALER"};
+            returnMessage.type = "yourToken";
+            returnMessage.data = {requestKey : requestKey};
 
         }else{
           var data = message.data;
@@ -35,9 +35,8 @@ var blackjackGame = {
 
         return returnMessage;
     },
-
     getConnectionToRespond : function(message, connection){
-        if(message.type == "newDealer"){
+        if(message.type == "myToken"){
           return connection;
         }else{
           var conn = this.mapKeyConnection[message.data.to];
@@ -51,4 +50,4 @@ var blackjackGame = {
 
 };
 
-exports.blackjackGame = blackjackGame;
+exports.brownet = brownet;

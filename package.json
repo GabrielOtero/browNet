@@ -14,7 +14,7 @@
   },
   "scripts": { 
     "test": "./Test/TestRunner.sh" ,
-    "start": "node App/blackjackServer.js"
+    "start": "node App/brownetServer.js"
     },
   "devDependencies": 
   { "test": ">=0.0.5", "start": ">=0.0.5"}
