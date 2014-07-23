@@ -1,4 +1,4 @@
-var blackjack = require("../../../App/blackjackGame.js").blackjackGame;
+var blackjack = require("../../../App/brownet.js").brownet;
 
 describe("blackjack", function () {
 
@@ -9,7 +9,6 @@ describe("blackjack", function () {
 
 			expect(response.statusCode).toBe(200);
 			expect(response.resource).toBe("file");
-
 		});
 	});
 
@@ -20,7 +19,6 @@ describe("blackjack", function () {
 
 			expect(response.statusCode).toBe(500);
 			expect(response.resource).toBe("unexpected Error");
-
 		});
 	});
 
@@ -31,11 +29,10 @@ describe("blackjack", function () {
 
 			expect(response.statusCode).toBe(404);
 			expect(response.resource).toBe("");
-
 		});
 	});
 
-	describe("on 'makeResponseMessage' with Dealer", function () {
+	describe("on 'makeResponseMessage'", function () {
 
 		var message = {data: {to:"josh"}, type : "otherMessage"};
 		var requestKey = "123";	
@@ -48,11 +45,25 @@ describe("blackjack", function () {
 
 			expect(response.type).toBe("otherMessage");
 			expect(response.data).toEqual({to:"josh", from: "xyz"});
-
 		});
 	});
 
-	describe("on 'getConnectionToRespond' with Dealer", function () {
+	describe("on 'makeResponseMessage' myToken message", function () {
+
+		var message = {data: {to:"josh"}, type : "myToken"};
+		var requestKey = "123";	
+
+		var response = blackjack.makeResponseMessage(requestKey, message);
+
+
+		it("should return 'yourToken' response", function(){
+
+			expect(response.type).toBe("yourToken");
+			expect(response.data).toEqual({requestKey:"123"});
+		});
+	});
+
+	describe("on 'getConnectionToRespond'", function () {
 
 		var json = {data: {to : "abc"}, type : "otherMessage"};
 		var connection = {bjkey: "xyz"};
@@ -63,7 +74,18 @@ describe("blackjack", function () {
 
 		it("should return 'otherMessage' response", function(){
 			expect(conn).toEqual({bjkey: "xyz"});
+		});
+	});
 
+	describe("on 'getConnectionToRespond' myToken message", function () {
+
+		var json = {data: {to : "abc"}, type : "myToken"};
+		var connection = {bjkey: "xyz"};
+
+		var conn = blackjack.getConnectionToRespond(json, connection);
+
+		it("should return 'yourToken' response", function(){
+			expect(conn).toEqual({bjkey: "xyz"});
 		});
 	});
 
