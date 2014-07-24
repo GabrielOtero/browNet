@@ -35,6 +35,11 @@ var brownet = {
 
         return returnMessage;
     },
+
+    makeYourTokenMessage: function(requestKey){
+        return  {type: "yourToken", data : {requestKey : requestKey}};
+    },
+
     getConnectionToRespond : function(message, connection){
         if(message.type == "myToken"){
           return connection;

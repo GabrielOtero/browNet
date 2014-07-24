@@ -38,6 +38,9 @@ wsServer.on('request', function(request) {
     
     blackjack.storeKeyConnection(request.key, connection);
 
+    var responseMessage = blackjack.makeYourTokenMessage(request.key);
+    sendMessage(connection, responseMessage);
+
     connection.on('message', function(json) {
 
         var message = JSON.parse(json.utf8Data);
@@ -54,5 +57,5 @@ wsServer.on('request', function(request) {
 });
 
 var sendMessage = function(conn, message){
-        conn.sendUTF(JSON.stringify(message));
+    conn.sendUTF(JSON.stringify(message));
 };
