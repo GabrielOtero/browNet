@@ -13,11 +13,15 @@ var brownet = new Brownet(function(json){
     }
     
     if(message.data.addressee === DEALER){          
-        var response = dealer.deal(message);
+        dealer.deal(message);
+
+        var response = dealer.respond(message);
         sendMessage(response);
+
         if(message.type === 'newPlayer'){
             addMessage("New player has connected");
         }
+        
     }else if(message.data.addressee === PLAYER){
                    
         if (message.type === 'newPlayerAccepted'){

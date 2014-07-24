@@ -1,5 +1,8 @@
 describe("Dealer", function () {
 
+
+//TODO respond on newPlayer message
+//deal on newPlayerMessage
 	describe("on new card message", function () {
 
 		var data = {from : "player"}
@@ -11,7 +14,7 @@ describe("Dealer", function () {
             addressee: "player"
         }
 
-		var postBack = dealer.deal(message);
+		var postBack = dealer.respond(message);
 
 		it("should return new card's message", function(){
 
