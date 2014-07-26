@@ -15,7 +15,7 @@ var brownet = new Brownet(function(json){
     if(message.data.addressee === DEALER){          
         dealer.deal(message);
 
-        var response = dealer.respond(message);
+        var response = dealer.deal(message);
         sendMessage(response);
 
         if(message.type === 'newPlayer'){
