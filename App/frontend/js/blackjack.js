@@ -13,8 +13,6 @@ var brownet = new Brownet(function(json){
     }
     
     if(message.data.addressee === DEALER){          
-        dealer.deal(message);
-
         var response = dealer.deal(message);
         sendMessage(response);
 
@@ -31,6 +29,9 @@ var brownet = new Brownet(function(json){
         else if (message.type === "cardDrawn"){
             addMessage("Card Drawn: " + message.data.card);
         }
+        else if (message.type === "stoppedAsking"){
+            addMessage("Stopped asking. Your score is " + message.data.score);
+        }
     }
 })
 
@@ -46,6 +47,16 @@ function newCard(){
     sendMessage(message);
 }
 
+function stopAsking () {
+    var data = {addressee: DEALER, to: dealerToken}
+    var message = {type: 'stopAsking', data: data};
+
+    $("#btnNewCard").attr("disabled", "disabled")
+    $("#btnStopAsk").attr("disabled", "disabled")
+
+    sendMessage(message);
+}
+
 function addMessage(message) {
     var content = $('#content');       
     content.prepend('<p> Server </span> ' +': ' + message + '</p>');
@@ -57,19 +68,21 @@ function hideButtons() {
 }
 
 function beADealer(){
-    addMessage("Your Dealer Token: " + dealerToken);
+    addMessage("Your Dealer Token: " + dealerToken );
+    window.prompt("Your dealer token, you should Ctrl+C on it! :)", dealerToken)
     hideButtons();
 }
 
 function ShowPlayerOptions(){
-    $('#GeneretedDealerToken').removeClass("hidden").append("Insert Token here: ");
-    $('#InputDealerToken').removeClass("hidden");
-    $('#btnOk').removeClass("hidden");
+    $('.Container-token').removeClass("hidden");
+    $('#InputDealerToken').focus();
     hideButtons();
 }
 
 function beAPlayer(){
     dealerToken = $("#InputDealerToken").val();
+    $(".playerOptions").removeClass("hidden");
+    $(".Container-token").addClass("hidden");
     var json = {data: {to: dealerToken, addressee: DEALER}, type : "newPlayer"}
     sendMessage(json);
 }
