@@ -6,12 +6,15 @@ function Player() {
 	},
 	this.getScore = function () {
 		var score = 0;
+		
+		this.cards.sort(function(a, b){if(a == "A") {return 1} else{ return -1}});
+
 		this.cards.forEach(function (elem, idx, array) {
 			if(elem === "A"){
-				if(array.indexOf("K") == -1 && array.indexOf("Q") == -1 && array.indexOf("J") == -1){
-					score += 11;
+				if(score <= 10){
+					score += 11
 				}else{
-					score += 1;
+					score += 1
 				}
 			}else if(elem === "K"){
 				score += 13;

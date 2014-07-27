@@ -21,7 +21,7 @@ describe("Player", function () {
 			expect(player.getScore()).toBe(19);
 		});
 	});
-	describe("on getScore with an Ace and a card less then or equal Ten", function () {
+	describe("on getScore with an Ace and cards' sum less then or equal Ten", function () {
 
 		var player = new Player();
 
@@ -32,7 +32,7 @@ describe("Player", function () {
 			expect(player.getScore()).toBe(17);
 		});
 	});
-	describe("on getScore with an Ace and a card greater then Ten", function () {
+	describe("on getScore with an Ace and cards' sum greater then Ten", function () {
 
 		var player = new Player();
 
@@ -41,6 +41,19 @@ describe("Player", function () {
 
 		it("should consider Ace as 1 points", function(){
 			expect(player.getScore()).toBe(14);
+		});
+	});
+	describe("on getScore with an Ace and cards' sum greater then Ten", function () {
+
+		var player = new Player();
+
+		player.addCard("6");
+		player.addCard("3");
+		player.addCard("5");
+		player.addCard("A");
+
+		it("should consider Ace as 1 points", function(){
+			expect(player.getScore()).toBe(15);
 		});
 	});
 });
