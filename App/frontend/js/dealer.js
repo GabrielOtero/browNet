@@ -34,7 +34,7 @@ Dealer.prototype.deal = function(message){
     else if (message.type === 'stopAsking'){
 
         var playerKey = message.data.from;
-        var data = {addressee: PLAYER, to: message.data.from, score: this.table.players[playerKey].score};
+        var data = {addressee: PLAYER, to: message.data.from, score: this.table.players[playerKey].getScore()};
 
         messageTo.type = 'stoppedAsking' ,
         messageTo.data = data;

@@ -1,6 +1,31 @@
-function Player(status, score) {
-	this.status = status,
-	this.score = score
+function Player() {
+	this.status = STATUS.PLAYING,
+	this.cards = [],
+	this.addCard = function (card) {
+		this.cards.push(card)
+	},
+	this.getScore = function () {
+		var score = 0;
+		this.cards.forEach(function (elem, idx, array) {
+			if(elem === "A"){
+				if(array.indexOf("K") == -1 && array.indexOf("Q") == -1 && array.indexOf("J") == -1){
+					score += 11;
+				}else{
+					score += 1;
+				}
+			}else if(elem === "K"){
+				score += 13;
+			}else if( elem === "Q"){
+				score += 12;
+			}else if( elem === "J"){
+				score += 11;
+			}else{
+				score += parseInt(elem);
+			}
+		});
+
+		return score;
+	}
 }
 
 function Table () {
@@ -8,32 +33,13 @@ function Table () {
 }
 
 Table.prototype.addPlayer = function(playerKey){
-    this.players[playerKey] = new Player(STATUS.PLAYING, 0);
+    this.players[playerKey] = new Player();
 }
 
 Table.prototype.registerStoppedPlayer = function(playerKey){
 	this.players[playerKey].status = STATUS.STOPPED;
 }
 
-
-//Fix-m Draw A and K score should be 14... score returning 38!!
 Table.prototype.registerDrawnCard = function (playerKey, card) {
-	if(card === "A"){
-		if(this.players[playerKey].score >= 11){
-			this.players[playerKey].score += 1;
-		}else{
-			this.players[playerKey].score += 11;
-		}
-	}
-	else if(card === "K"){
-		this.players[playerKey].score += 13;
-	}
-	else if(card === "Q"){
-		this.players[playerKey].score += 12;
-	}
-	else if(card === "J"){
-		this.players[playerKey].score += 11;
-	}else{
-		this.players[playerKey].score += parseInt(card);
-	}
+	this.players[playerKey].addCard(card);
 }
