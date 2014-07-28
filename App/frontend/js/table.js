@@ -11,5 +11,11 @@ Table.prototype.registerStoppedPlayer = function(playerKey){
 }
 
 Table.prototype.registerDrawnCard = function (playerKey, card) {
-	this.players[playerKey].addCard(card);
+	var player = this.players[playerKey];
+	player.addCard(card);
+	if(player.getScore() > BLACKJACK){
+		player.status = STATUS.EXCEEDED;
+	}
+
+	return player.status
 }

@@ -28,9 +28,13 @@ var brownet = new Brownet(function(json){
         }
         else if (message.type === "cardDrawn"){
             addMessage("Card Drawn: " + message.data.card);
+            if(message.data.status == STATUS.EXCEEDED){
+                addMessage("awww you exceeded 21 points, your score is " + message.data.score);
+                disableAsking();
+            }
         }
         else if (message.type === "stoppedAsking"){
-            addMessage("Stopped asking. Your score is " + message.data.score);
+            addMessage("Stopped asking. Your score is " + message.data.score + "points");
         }
     }
 })
@@ -51,10 +55,14 @@ function stopAsking () {
     var data = {addressee: DEALER, to: dealerToken}
     var message = {type: 'stopAsking', data: data};
 
-    $("#btnNewCard").attr("disabled", "disabled")
-    $("#btnStopAsk").attr("disabled", "disabled")
+    disableAsking();
 
     sendMessage(message);
+}
+
+function disableAsking(){
+    $("#btnNewCard").attr("disabled", "disabled")
+    $("#btnStopAsk").attr("disabled", "disabled")
 }
 
 function addMessage(message) {

@@ -69,7 +69,7 @@ describe("Table", function () {
 			expect(table.players["asdf"].getScore()).toBe(0);
 		});
 	});
-	describe("on registerStoppedPlayer", function () {
+	describe("on register Stopped Player", function () {
 
 		var table = new Table();
 
@@ -85,7 +85,7 @@ describe("Table", function () {
 			expect(table.players["qwerty"].getScore()).toBe(0);
 		});
 	})
-	describe("on registerDrawnCard", function () {
+	describe("on register Drawn Card", function () {
 
 		var table = new Table();
 
@@ -93,10 +93,26 @@ describe("Table", function () {
 
 		table.addPlayer(player.key);
 
-		table.registerDrawnCard(player.key, "8");
+		var status = table.registerDrawnCard(player.key, "8");
 
 		it("should should register player's card", function(){
 			expect(table.players["qwerty"].cards[0]).toBe("8");
+			expect(status).toBe(STATUS.PLAYING);
+		});
+	});
+	describe("on register Drawn Card exceeded 21", function () {
+
+		var table = new Table();
+
+		player = {key : "qwerty"}
+
+		table.addPlayer(player.key);
+
+		table.registerDrawnCard(player.key, "J");
+		var status = table.registerDrawnCard(player.key, "K");
+
+		it("should should register player's card and status exceeded", function(){
+			expect(status).toBe(STATUS.EXCEEDED);
 		});
 	});
 });

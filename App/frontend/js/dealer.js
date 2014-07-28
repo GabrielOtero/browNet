@@ -16,12 +16,12 @@ Dealer.prototype.deal = function(message){
         var key = message.data.from;
         var card = this.deck.pop();
 
-        var data = {to:  key, card: card,  addressee: PLAYER}
+        var playerStatus = this.table.registerDrawnCard(key, card);
+
+        var data = {to:  key, card: card,  addressee: PLAYER, status: playerStatus, score: this.table.players[key].getScore()}
 
         messageTo.type = 'cardDrawn';
         messageTo.data = data;
-
-        this.table.registerDrawnCard(key, card)
     }
     else if (message.type === 'newPlayer'){
         var data = {addressee: PLAYER, to: message.data.from};
