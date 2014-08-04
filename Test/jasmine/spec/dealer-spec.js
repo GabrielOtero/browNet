@@ -28,6 +28,8 @@ describe("Dealer", function () {
 		var dealer = new Dealer();
 
 
+		dealer.deck = ["10", "8", "J", "3"]
+
 		var message = { 
             type: 'newPlayer', 
             data: data,
@@ -50,7 +52,8 @@ describe("Dealer", function () {
 			expect(postBack.type).toBe("cardDrawn");
 			
 			expect(postBack.data.to).toBe("player");
-			expect(postBack.data.card).toBeTruthy();
+			expect(postBack.data.card).toBe("3");
+			expect(postBack.data.score).toBe(3);
 			expect(postBack.data.addressee).toBe(PLAYER);
 		});
 	});

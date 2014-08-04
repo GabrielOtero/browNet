@@ -16,6 +16,9 @@ Table.prototype.registerDrawnCard = function (playerKey, card) {
 	if(player.getScore() > BLACKJACK){
 		player.status = STATUS.EXCEEDED;
 	}
+	if(player.getScore() == BLACKJACK){
+		player.status = STATUS.BLACKJACK;
+	}
 
 	return player.status
 }

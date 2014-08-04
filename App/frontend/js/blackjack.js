@@ -27,9 +27,13 @@ var brownet = new Brownet(function(json){
             $('#btnNewCard').removeClass("hidden");
         }
         else if (message.type === "cardDrawn"){
-            addMessage("Card Drawn: " + message.data.card);
+            addMessage("Card Drawn: " + message.data.card + " ("+message.data.score+" points)");
+            
             if(message.data.status == STATUS.EXCEEDED){
                 addMessage("awww you exceeded 21 points, your score is " + message.data.score);
+                disableAsking();
+            } else if(message.data.status == STATUS.BLACKJACK){
+                addMessage("CONGRATULATIONS, YOU HAVE BLACKJACKED (" + message.data.score + "POINTS!!!!)");
                 disableAsking();
             }
         }

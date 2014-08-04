@@ -16,12 +16,8 @@ function Player() {
 				}else{
 					score += 1
 				}
-			}else if(elem === "K"){
-				score += 13;
-			}else if( elem === "Q"){
-				score += 12;
-			}else if( elem === "J"){
-				score += 11;
+			}else if(elem === "K" || elem === "Q" || elem === "J"){
+				score += 10;
 			}else{
 				score += parseInt(elem);
 			}

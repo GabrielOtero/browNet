@@ -17,8 +17,8 @@ describe("Player", function () {
 		player.addCard("K");
 		player.addCard("6");
 
-		it("should consider K as 13 points", function(){
-			expect(player.getScore()).toBe(19);
+		it("should consider K as 10 points", function(){
+			expect(player.getScore()).toBe(16);
 		});
 	});
 	describe("on getScore with an Ace and cards' sum less then or equal Ten", function () {
@@ -40,7 +40,7 @@ describe("Player", function () {
 		player.addCard("K");
 
 		it("should consider Ace as 1 points", function(){
-			expect(player.getScore()).toBe(14);
+			expect(player.getScore()).toBe(21);
 		});
 	});
 	describe("on getScore with an Ace and cards' sum greater then Ten", function () {
@@ -108,6 +108,7 @@ describe("Table", function () {
 
 		table.addPlayer(player.key);
 
+		table.registerDrawnCard(player.key, "J");
 		table.registerDrawnCard(player.key, "J");
 		var status = table.registerDrawnCard(player.key, "K");
 
