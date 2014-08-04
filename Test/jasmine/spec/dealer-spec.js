@@ -98,5 +98,29 @@ describe("Dealer", function () {
 			expect(postBack.data.addressee).toBe(PLAYER);
 			expect(postBack.data.score).toBe(15);
 		});
-	})
+	});
+	describe("on dealer's play", function (argument) {
+		var dealer = new Dealer();
+		dealer.deck = ["2","10","8"]
+		var plays = dealer.play(17);
+
+		it("should plays util win", function(){
+			expect(plays).toEqual(["8", "10"]);
+		});
+	});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

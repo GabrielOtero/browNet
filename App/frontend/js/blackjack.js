@@ -38,7 +38,20 @@ var brownet = new Brownet(function(json){
             }
         }
         else if (message.type === "stoppedAsking"){
-            addMessage("Stopped asking. Your score is " + message.data.score + "points");
+            var dealerScore = message.data.dealerScore;
+            var score = message.data.score;
+            addMessage("Stopped asking. Your score is " + score + "points");
+            
+            for(var i = 0; i < message.data.dealersPlay.length; i++){
+                var play = message.data.dealersPlay[i];
+                addMessage("Dealers draw a card: " + play);
+            }
+            
+            if(dealerScore > score && dealerScore <= BLACKJACK){
+                addMessage("awww DEALER got " + dealerScore + " points");   
+            }else{
+                addMessage("CONGRATULATIONS, YOU WIN (dealer got " + dealerScore + " points)");
+            }
         }
     }
 })
@@ -60,7 +73,6 @@ function stopAsking () {
     var message = {type: 'stopAsking', data: data};
 
     disableAsking();
-
     sendMessage(message);
 }
 
