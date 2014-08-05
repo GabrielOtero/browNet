@@ -3,17 +3,19 @@ var PLAYER = "PLAYER";
 
 var dealer = new Dealer();
 var dealerToken = "";
+var myToken = "";
 
 var brownet = new Brownet(function(json){
     var message = JSON.parse(json.data); 
 
     if (message.type === 'yourToken') {
-        dealerToken = message.data.requestKey;
+        myToken = message.data.requestKey;
         return;
     }
     
     if(message.data.addressee === DEALER){          
         var response = dealer.deal(message);
+
         sendMessage(response);
 
         if(message.type === 'newPlayer'){
@@ -23,18 +25,26 @@ var brownet = new Brownet(function(json){
     }else if(message.data.addressee === PLAYER){
                    
         if (message.type === 'newPlayerAccepted'){
-            addMessage("Accepted");
-            $('#btnNewCard').removeClass("hidden");
+            if(message.data.origin == myToken){
+                addMessage("Accepted");
+                $('#btnNewCard').removeClass("hidden");
+            }else{
+                console.info(message.data.origin + " new player has connected")
+            }
         }
         else if (message.type === "cardDrawn"){
-            addMessage("Card Drawn: " + message.data.card + " ("+message.data.score+" points)");
+            if(message.data.origin == myToken){
+                addMessage("Card Drawn: " + message.data.card + " ("+message.data.score+" points)");
             
-            if(message.data.status == STATUS.EXCEEDED){
-                addMessage("awww you exceeded 21 points, your score is " + message.data.score);
-                disableAsking();
-            } else if(message.data.status == STATUS.BLACKJACK){
-                addMessage("CONGRATULATIONS, YOU HAVE BLACKJACKED (" + message.data.score + "POINTS!!!!)");
-                disableAsking();
+                if(message.data.status == STATUS.EXCEEDED){
+                    addMessage("awww you exceeded 21 points, your score is " + message.data.score);
+                    disableAsking();
+                } else if(message.data.status == STATUS.BLACKJACK){
+                    addMessage("CONGRATULATIONS, YOU HAVE BLACKJACKED (" + message.data.score + "POINTS!!!!)");
+                    disableAsking();
+                }
+            }else{
+                console.info(message.data.origin + " Card Drawn: " + message.data.card + " ("+message.data.score+" points)");
             }
         }
         else if (message.type === "stoppedAsking"){
@@ -92,8 +102,8 @@ function hideButtons() {
 }
 
 function beADealer(){
-    addMessage("Your Dealer Token: " + dealerToken );
-    window.prompt("Your dealer token, you should Ctrl+C on it! :)", dealerToken)
+    addMessage("Your Dealer Token: " + myToken );
+    window.prompt("Your dealer token, you should Ctrl+C on it! :)", myToken)
     hideButtons();
 }
 

@@ -20,25 +20,27 @@ Dealer.prototype.deal = function(message){
 
         var playerStatus = this.table.players[key].addCard(card);
 
-        var data = {to:  key, card: card,  addressee: PLAYER, status: playerStatus, score: this.table.players[key].getScore()}
+        var data = {to:  Object.keys(this.table.players), origin: key, card: card,  addressee: PLAYER, status: playerStatus, score: this.table.players[key].getScore()}
 
         messageTo.type = 'cardDrawn';
         messageTo.data = data;
     }
     else if (message.type === 'newPlayer'){
-        var data = {addressee: PLAYER, to: message.data.from};
+        this.table.addPlayer(message.data.from);
+
+        var data = {addressee: PLAYER, to: Object.keys(this.table.players), origin: message.data.from};
 
         messageTo.type = 'newPlayerAccepted' ,
         messageTo.data = data;
 
-        this.table.addPlayer(message.data.from);    
+
     }
     else if (message.type === 'stopAsking'){
 
         var playerKey = message.data.from;
         var score = this.table.players[playerKey].getScore();
 
-        var data = {addressee: PLAYER, to: message.data.from, score: score, dealersPlay: this.play(score), dealerScore: this.score};
+        var data = {addressee: PLAYER, to: Object.keys(this.table.players), score: score, dealersPlay: this.play(score), dealerScore: this.score};
 
         messageTo.type = 'stoppedAsking' ,
 
@@ -55,7 +57,7 @@ Dealer.prototype.play = function (score) {
     this.table.addPlayer(DEALER);
     var dealer = this.table.players[DEALER];
 
-    while(dealer.getScore() < score && dealer.getScore() <= BLACKJACK){
+    while(dealer.getScore() <= score && dealer.getScore() < BLACKJACK){
         dealer.addCard(this.deck.pop())
     }
 

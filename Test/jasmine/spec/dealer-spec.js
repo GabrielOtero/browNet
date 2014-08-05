@@ -17,7 +17,7 @@ describe("Dealer", function () {
 
 			expect(postBack.type).toBe("newPlayerAccepted");
 			
-			expect(postBack.data.to).toBe("player");
+			expect(postBack.data.to).toEqual(["player"]);
 			expect(postBack.data.addressee).toBe(PLAYER);
 			expect(Object.keys(dealer.table.players).length).toBe(1);
 		});
@@ -51,7 +51,7 @@ describe("Dealer", function () {
 
 			expect(postBack.type).toBe("cardDrawn");
 			
-			expect(postBack.data.to).toBe("player");
+			expect(postBack.data.to).toEqual(["player"]);
 			expect(postBack.data.card).toBe("3");
 			expect(postBack.data.score).toBe(3);
 			expect(postBack.data.addressee).toBe(PLAYER);
@@ -94,7 +94,7 @@ describe("Dealer", function () {
 
 			expect(postBack.type).toBe("stoppedAsking");
 			
-			expect(postBack.data.to).toBe("player");
+			expect(postBack.data.to).toEqual(["player"]);
 			expect(postBack.data.addressee).toBe(PLAYER);
 			expect(postBack.data.score).toBe(15);
 		});
