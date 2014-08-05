@@ -63,26 +63,27 @@ describe("blackjack", function () {
 		});
 	});
 
-	describe("on 'getConnectionToRespond'", function () {
+	describe("on 'getConnectionsToRespond'", function () {
 
 		var json = {data: {to : "abc"}, type : "otherMessage"};
 		var connection = {bjkey: "xyz"};
+
 		blackjack.mapKeyConnection["abc"] = connection;
 
-		var conn = blackjack.getConnectionToRespond(json, connection);
+		var conn = blackjack.getConnectionsToRespond(json, connection);
 
 
 		it("should return 'otherMessage' response", function(){
-			expect(conn).toEqual({bjkey: "xyz"});
+			expect(conn).toEqual([{bjkey: "xyz"}]);
 		});
 	});
 
-	describe("on 'getConnectionToRespond' myToken message", function () {
+	describe("on 'getConnectionsToRespond' myToken message", function () {
 
 		var json = {data: {to : "abc"}, type : "myToken"};
 		var connection = {bjkey: "xyz"};
 
-		var conn = blackjack.getConnectionToRespond(json, connection);
+		var conn = blackjack.getConnectionsToRespond(json, connection);
 
 		it("should return 'yourToken' response", function(){
 			expect(conn).toEqual({bjkey: "xyz"});

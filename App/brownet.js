@@ -40,12 +40,25 @@ var brownet = {
         return  {type: "yourToken", data : {requestKey : requestKey}};
     },
 
-    getConnectionToRespond : function(message, connection){
+    getConnectionsToRespond : function(message, connection){
         if(message.type == "myToken"){
-          return connection;
+            return connection;
         }else{
-          var conn = this.mapKeyConnection[message.data.to];
-          return conn;
+            var recipients = [];
+            var conns = [];
+            var to = message.data.to;
+            
+            if(!(Array.isArray(to))){
+                recipients.push(to);
+            }else{
+                recipients = to;
+            }
+            
+            for(var i = 0; i < recipients.length; i++){
+                var r = recipients[i];
+                conns.push(this.mapKeyConnection[r]);
+            }
+            return conns;
         }
     },
     storeKeyConnection : function(requestKey, connection){

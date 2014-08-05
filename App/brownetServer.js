@@ -44,11 +44,12 @@ wsServer.on('request', function(request) {
     connection.on('message', function(json) {
 
         var message = JSON.parse(json.utf8Data);
-        var conn = blackjack.getConnectionToRespond(message, connection);
+        var conns = blackjack.getConnectionsToRespond(message, connection);
         var responseMessage = blackjack.makeResponseMessage(request.key, message, connection);
 
-        sendMessage(conn, responseMessage);    
-
+        for(var i = 0; i < conns.length; i++){
+            sendMessage(conns[i], responseMessage);    
+        }
     });
 
     connection.on('close', function(connection) {
