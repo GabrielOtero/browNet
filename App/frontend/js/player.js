@@ -2,7 +2,15 @@ function Player() {
 	this.status = STATUS.PLAYING,
 	this.cards = [],
 	this.addCard = function (card) {
-		this.cards.push(card)
+		this.cards.push(card);
+		if(this.getScore() > BLACKJACK){
+			this.status = STATUS.EXCEEDED;
+		}
+		if(this.getScore() == BLACKJACK){
+			this.status = STATUS.BLACKJACK;
+		}
+
+		return this.status
 	},
 	this.getScore = function () {
 		var score = 0;

@@ -93,7 +93,7 @@ describe("Table", function () {
 
 		table.addPlayer(player.key);
 
-		var status = table.registerDrawnCard(player.key, "8");
+		var status = table.players[player.key].addCard("8");;
 
 		it("should should register player's card", function(){
 			expect(table.players["qwerty"].cards[0]).toBe("8");
@@ -108,9 +108,9 @@ describe("Table", function () {
 
 		table.addPlayer(player.key);
 
-		table.registerDrawnCard(player.key, "J");
-		table.registerDrawnCard(player.key, "J");
-		var status = table.registerDrawnCard(player.key, "K");
+		table.players[player.key].addCard("J");
+		table.players[player.key].addCard("J");
+		var status = table.players[player.key].addCard("K");
 
 		it("should should register player's card and status exceeded", function(){
 			expect(status).toBe(STATUS.EXCEEDED);

@@ -1,3 +1,4 @@
+DEALER = "dealer"
 function Dealer(){
     this.table = new Table()
     this.deck = ["A","2","3","4","5","6","7","8","9","10","J","Q","K",
@@ -17,7 +18,7 @@ Dealer.prototype.deal = function(message){
         var key = message.data.from;
         var card = this.deck.pop();
 
-        var playerStatus = this.table.registerDrawnCard(key, card);
+        var playerStatus = this.table.players[key].addCard(card);
 
         var data = {to:  key, card: card,  addressee: PLAYER, status: playerStatus, score: this.table.players[key].getScore()}
 
@@ -51,28 +52,16 @@ Dealer.prototype.deal = function(message){
 
 Dealer.prototype.play = function (score) {
     this.score = 0;
-    var cardsPlayed = [];
+    this.table.addPlayer(DEALER);
+    var dealer = this.table.players[DEALER];
 
-    while (this.score <= score && this.score <= BLACKJACK){
-        var card = this.deck.pop();
-        cardsPlayed.push(card);
-
-        cardsPlayed.sort(function(a, b){if(a == "A") {return 1} else{ return -1}});
-
-        if(card === "A"){
-            if(this.score <= 10){
-                this.score += 11
-            }else{
-                this.score += 1
-            }
-        }else if(card === "K" || card === "Q" || card === "J"){
-            this.score += 10;
-        }else{
-            this.score += parseInt(card);
-        }
+    while(dealer.getScore() < score && dealer.getScore() <= BLACKJACK){
+        dealer.addCard(this.deck.pop())
     }
 
-    return cardsPlayed;
+    this.score = this.table.players[DEALER].getScore()
+
+    return dealer.cards;
 }
 
 
