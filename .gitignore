@@ -2,3 +2,5 @@ node_modules/
 lib/
 bower_components/
 *.DS_Store
+.c9/
+*.log
