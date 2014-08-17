@@ -5,7 +5,7 @@ var path = require("path")
 var webSocketServer = require('websocket').server;
 var blackjack = require("./brownet").brownet;
 
-var webSocketsServerPort = 1337; 
+var webSocketsServerPort = 8080; 
 
 var server = http.createServer(function(request, response) {
     var uri = url.parse(request.url).pathname;
@@ -20,7 +20,9 @@ var server = http.createServer(function(request, response) {
         fs.readFile(filename, "binary", function(err, file) {
             var res = blackjack.makeResponse(exists, file, err);
 
-            response.writeHead(res.statusCode, [{"Content-Type": request.headers.accept[0]}]);
+            if(request.headers.accept){
+                response.writeHead(res.statusCode, [{"Content-Type": request.headers.accept[0]}]);    
+            }
             response.write(res.resource);
             response.end();
         });
@@ -48,7 +50,9 @@ wsServer.on('request', function(request) {
         var responseMessage = blackjack.makeResponseMessage(request.key, message, connection);
 
         for(var i = 0; i < conns.length; i++){
-            sendMessage(conns[i], responseMessage);    
+            if(conns[i]){
+                sendMessage(conns[i], responseMessage);                    
+            }
         }
     });
 

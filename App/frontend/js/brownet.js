@@ -1,4 +1,4 @@
-var connection = new WebSocket('ws://127.0.0.1:1337');
+var connection = new WebSocket('wss://brownet-c9-gahotero.c9.io');
 
 function Brownet (callback) {
 
