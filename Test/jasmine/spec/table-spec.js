@@ -95,7 +95,7 @@ describe("Table", function () {
 
 		var status = table.players[player.key].addCard("8");;
 
-		it("should should register player's card", function(){
+		it("should register player's card", function(){
 			expect(table.players["qwerty"].cards[0]).toBe("8");
 			expect(status).toBe(STATUS.PLAYING);
 		});
@@ -112,8 +112,57 @@ describe("Table", function () {
 		table.players[player.key].addCard("J");
 		var status = table.players[player.key].addCard("K");
 
-		it("should should register player's card and status exceeded", function(){
+		it("should register player's card and status exceeded", function(){
 			expect(status).toBe(STATUS.EXCEEDED);
+		});
+	});
+
+	describe("on check everyone has stopped", function(){
+		var table = new Table();
+
+		table.addPlayer("qwerty");
+		table.addPlayer("asdfg");
+		table.addPlayer("foobar");
+
+		var status = table.stillPlaying();
+
+		it("shoud return false ", function(){
+			expect(status).toBe(true);
+		});
+	});
+
+	describe("on check everyone has stopped", function(){
+		var table = new Table();
+
+		table.addPlayer("qwerty");
+		table.addPlayer("asdfg");
+		table.addPlayer("foobar");
+
+		table.players["qwerty"].status = STATUS.STOPPED;
+		table.players["foobar"].status = STATUS.STOPPED;
+		table.players["asdfg"].status = STATUS.EXCEEDED;
+
+		var status = table.stillPlaying();
+
+		it("shoud return false ", function(){
+			expect(status).toBe(false);
+		});
+	});
+	describe("on get highest score", function(){
+		var table = new Table();
+
+		table.addPlayer("qwerty");
+		table.addPlayer("asdfg");
+		table.addPlayer("foobar");
+
+		table.players["qwerty"].cards = ["1","2", "3"]
+		table.players["asdfg"].cards = ["Q", "K"]
+		table.players["foobar"].cards = ["9", "10"]
+
+		var highest = table.getHighestScore();
+
+		it("shoud return 20 ", function(){
+			expect(highest).toBe(20);
 		});
 	});
 });

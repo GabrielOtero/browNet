@@ -102,10 +102,11 @@ describe("Dealer", function () {
 	describe("on dealer's play", function (argument) {
 		var dealer = new Dealer();
 		dealer.deck = ["2","10","8"]
-		var plays = dealer.play(17);
+		dealer.table.getHighestScore = function(){return 17};
+		var messageTo = dealer.play();
 
 		it("should plays util win", function(){
-			expect(plays).toEqual(["8", "10"]);
+			expect(messageTo.data.dealersPlay).toEqual(["8", "10"]);
 		});
 	});
 });

@@ -56,7 +56,11 @@ var brownet = {
             
             for(var i = 0; i < recipients.length; i++){
                 var r = recipients[i];
-                conns.push(this.mapKeyConnection[r]);
+                if(this.mapKeyConnection[r]){
+                    conns.push(this.mapKeyConnection[r]);
+                }else{
+                    console.info("key: "+ r + "has no connection configured")
+                }
             }
             return conns;
         }

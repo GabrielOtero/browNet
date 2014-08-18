@@ -50,9 +50,7 @@ wsServer.on('request', function(request) {
         var responseMessage = blackjack.makeResponseMessage(request.key, message, connection);
 
         for(var i = 0; i < conns.length; i++){
-            if(conns[i]){
-                sendMessage(conns[i], responseMessage);                    
-            }
+            sendMessage(conns[i], responseMessage);                    
         }
     });
 
